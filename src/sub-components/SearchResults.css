@@ -1,0 +1,12 @@
+.electro-reacto-paper-content{
+    cursor: pointer;
+    padding:0.5rem !important;
+    margin:0.5rem 0 !important;
+}
+.electro-recto-search-result-text{
+    margin-bottom: 0.5rem !important;
+}
+.electro-reacto-paper :hover{
+    background-color: #e3dede !important;
+    cursor: pointer;
+}

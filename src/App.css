@@ -1,28 +1,45 @@
-.App {
+.app-component {
+  background: url(./images/background.jpg) no-repeat center center fixed;
+  background-size: cover;
+  min-height: 737px;
+}
+.electro-reacto-nav-item{
   text-align: center;
+  cursor: pointer;
+  width: 10rem;
 }
-
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
+.electro-reacto-navbarbrand{
+  margin:auto !important;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
 }
-
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
+.electro-reacto-navbarbrand-text{
+color: #007685;
 }
-
-.App-title {
-  font-size: 1.5em;
+.clinic-icon{
+  background: url(./images/clinic-icon.png)  no-repeat;
+  background-size: 49px;
+  background-position-x: center;
+  height: 41px;
 }
-
-.App-intro {
-  font-size: large;
+.electro-reacto-add-patient-wrapper{
+  margin-left: 2rem;
 }
-
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+.electro-reacto-add-patient-textfields{
+  margin-right: 2rem !important;
+  margin-top: 2rem !important;
+}
+.electro-reacto-text-color{
+  color:grey;
+}
+.electro-reacto-tab-icons{
+  opacity: 0.6 !important;
+}
+.modal-content{
+  background-color: #c5c6ed !important;
+}
+.electro-reacto-cards{
+  margin: 0.5rem 1rem 1rem 1rem !important;
+}
+.card-body{
+  background-color: unset !important;
 }
