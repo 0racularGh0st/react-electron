@@ -43,3 +43,7 @@ color: #007685;
 .card-body{
   background-color: unset !important;
 }
+.electro-reacto-line{
+  border-bottom: 1px solid #a9b7c3;
+  padding-top: 1.5rem;
+}

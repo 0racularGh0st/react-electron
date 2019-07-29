@@ -6,7 +6,7 @@
 .electro-recto-search-result-text{
     margin-bottom: 0.5rem !important;
 }
-.electro-reacto-paper :hover{
+.electro-reacto-paper-results-unique :hover{
     background-color: #e3dede !important;
     cursor: pointer;
 }

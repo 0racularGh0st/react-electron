@@ -1,5 +1,5 @@
 import React from 'react';
-import { TabContent, TabPane, Nav, NavItem, NavLink, Card, CardTitle, CardText, Row, Col, Navbar, NavbarBrand, Modal, ModalHeader, ModalFooter } from 'reactstrap';
+import { TabContent, TabPane, Nav, NavItem, NavLink, Card, Row, Col, Navbar, NavbarBrand, Modal, ModalHeader, ModalFooter } from 'reactstrap';
 import classnames from 'classnames';
 //Icons
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
@@ -15,6 +15,7 @@ import Button from '@material-ui/core/Button';
 //Subcomponents
 import SearchComponent from './sub-components/SearchComponent';
 import SearchResults from './sub-components/SearchResults';
+import PatientDetails from './sub-components/PatientDetails';
 const db = require('./utils/databaseUtils');
 const sex = [
     {
@@ -53,7 +54,8 @@ export default class App extends React.Component {
             medication:'',
             amount:'',
             // Search Object
-            searchData:null
+            searchData:null,
+            patientHistory:null
         };
         this.toggleModal = this.toggleModal.bind(this);
         //Add New Patient Tab Functions
@@ -62,6 +64,7 @@ export default class App extends React.Component {
         //Database Operations
         this.dbSearch = this.dbSearch.bind(this);
         this.dbAddNewPatient = this.dbAddNewPatient.bind(this);
+        this.vdbGetPatientHistory= this.vdbGetPatientHistory.bind(this);
         //Snack Bar Toggle 
         this.toggleSnackBarOpen = this.toggleSnackBarOpen.bind(this);
         this.toggleSnackBarClose = this.toggleSnackBarClose.bind(this);
@@ -120,11 +123,17 @@ export default class App extends React.Component {
                resolve(data);
           })
        })
-       .then(data=>{this.setState({searchData:data});console.log(data)});
-    
-        
+       .then(data=>{this.setState({searchData:data});console.log(data)});     
     }
-
+    vdbGetPatientHistory(reg_no){
+        console.log("Clicked in PatientDetails with parameter as ", reg_no);
+        new Promise((resolve,reject)=>{
+           db.getVisits(reg_no,function(data){
+                resolve(data);
+           })
+        })
+        .then(data=>{this.setState({patientHistory:data});console.log(data)});  
+    }
     dbAddNewPatient() {
         let firstname = document.getElementById("id_firstname");
         let lastname = document.getElementById("id_lastname");
@@ -257,6 +266,10 @@ export default class App extends React.Component {
                             </Col>
                         </Row>
                         <Row>
+                            <Col sm="11" className="electro-reacto-line">
+                            </Col>
+                        </Row>
+                        <Row>
                             <Col sm="11" className="electro-reacto-add-patient-wrapper">
                                 <Button variant="outlined" className="electro-reacto-add-patient-textfields" disabled={confirmActive} onClick={() => { this.confirmClicked(); }} >
                                     <div className="electro-reacto-text-color">Confirm Details</div>
@@ -280,23 +293,14 @@ export default class App extends React.Component {
                                 </Row>
                                 <Row className="electro-reacto-cards">
                                     <Card body>
-                                        <SearchResults searchResults={this.state.searchData}/>
+                                        <SearchResults searchResults={this.state.searchData} vdbGetPatientHistory={this.vdbGetPatientHistory} />
                                     </Card>
                                 </Row>
                             </Col>
                             <Col sm="7">
                                 <Row className="electro-reacto-cards">
                                     <Card body>
-                                        <CardTitle>Special Title Treatment</CardTitle>
-                                        <CardText>With supporting text below as a natural lead-in to additional content.</CardText>
-                                        <Button>Go somewhere</Button>
-                                    </Card>
-                                </Row>
-                                <Row className="electro-reacto-cards">
-                                    <Card body>
-                                        <CardTitle>Special Title Treatment</CardTitle>
-                                        <CardText>With supporting text below as a natural lead-in to additional content.</CardText>
-                                        <Button>Go somewhere</Button>
+                                       <PatientDetails patientDetails={this.state.patientHistory}/>
                                     </Card>
                                 </Row>
                             </Col>
