@@ -309,7 +309,7 @@ export default class App extends React.Component {
                             <Col sm="7">
                                 <Row className="electro-reacto-cards">
                                     <Card body>
-                                       <PatientDetails patientDetails={this.state.patientHistory} vdbAddVist={this.vdbAddVist} patientHistoryDetails={this.state.patientHistoryDetails}/>
+                                       <PatientDetails patientDetails={this.state.patientHistory} vdbAddVist={this.vdbAddVist} patientHistoryDetails={this.state.patientHistoryDetails} vdbGetPatientHistory={this.vdbGetPatientHistory} />
                                     </Card>
                                 </Row>
                             </Col>

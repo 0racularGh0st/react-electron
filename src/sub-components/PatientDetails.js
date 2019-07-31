@@ -36,6 +36,10 @@ export default class PatientDetails extends React.Component {
         this.editClicked = this.editClicked.bind(this);
         this.addVist = this.addVist.bind(this);
         this.handleAddButtonClick = this.handleAddButtonClick.bind(this);
+        this.handleVisitsRefetch=this.handleVisitsRefetch.bind(this);
+    }
+    handleVisitsRefetch(){
+        this.props.vdbGetPatientHistory(this.patientDetails.reg_no,this.mainDetails);
     }
     handleAddButtonClick() {
         if (this.state.addButtonClicked) {
@@ -46,16 +50,18 @@ export default class PatientDetails extends React.Component {
         }
     }
     addVist() {
-        if (this.patientDetails.reg_no !== null || this.state.complaints !== '' || this.state.medication !== '' || this.state.amount !== '') {
-            this.props.vdbAddVist(this.patientDetails.reg_no, this.state.complaints, this.state.medication, this.state.amount);
-            this.editClicked();
-            this.setState({
-                complaints: '',
-                medication: '',
-                amount: ''
-            });
-        }
-
+        new Promise((resolve,reject)=>{
+             if (this.patientDetails.reg_no !== null || this.state.complaints !== '' || this.state.medication !== '' || this.state.amount !== '') {
+                this.props.vdbAddVist(this.patientDetails.reg_no, this.state.complaints, this.state.medication, this.state.amount);
+                this.editClicked();
+                this.setState({
+                    complaints: '',
+                    medication: '',
+                    amount: ''
+                });
+            }
+            resolve();
+        }).then(()=>{this.handleVisitsRefetch();});
     }
     componentWillReceiveProps(nextProps, nextContext) {
         if (this.props.patientDetails !== nextProps.patientDetails) {
