@@ -134,6 +134,14 @@ export default class App extends React.Component {
         })
         .then(data=>{this.setState({patientHistory:data});console.log(data)});  
     }
+    vdbAddVist(reg,complaints,meds,amount){
+        new Promise((resolve,reject)=>{
+            db.addVisit(reg,complaints,meds,amount,function(){
+                resolve();
+            })
+        })
+        .then(console.log("Data ready for re rendering"));
+    }
     dbAddNewPatient() {
         let firstname = document.getElementById("id_firstname");
         let lastname = document.getElementById("id_lastname");
@@ -300,7 +308,7 @@ export default class App extends React.Component {
                             <Col sm="7">
                                 <Row className="electro-reacto-cards">
                                     <Card body>
-                                       <PatientDetails patientDetails={this.state.patientHistory}/>
+                                       <PatientDetails patientDetails={this.state.patientHistory} vdbAddVist={this.vdbAddVist}/>
                                     </Card>
                                 </Row>
                             </Col>

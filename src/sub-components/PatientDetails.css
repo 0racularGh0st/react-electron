@@ -6,3 +6,51 @@
     padding: 0.3rem;
     border-radius: 10px;
 }
+
+.electro-reacto-visits-flex-box{
+    display: flex;
+}
+
+.electro-reacto-visits-complaints{
+ max-width:22rem ;
+ min-width:22rem;
+ margin-right: 1rem;
+}
+.electro-reacto-visits-meds{
+    max-width:13rem;
+    min-width:13rem;
+    margin-right: 1rem;
+}
+.electro-reacto-visits-amount{
+    max-width:8rem;
+    min-width:8rem;
+}
+.electro-reacto-visits-card{
+    box-shadow: inset 0px 0px 9px 0px rgba(0,0,0,0.2), 0px 1px 1px 0px rgba(0,0,0,0.14), 0px 2px 1px -1px rgba(0,0,0,0.12) !important;
+   background-color: #f9f9f9 !important;
+}
+.electro-reacto-visit-heading{
+    text-align: center;
+    border-bottom: 1px solid #d2d2d2;
+}
+.electro_reacto-remove-top-margin{
+    margin-top:unset !important;
+}
+.electro-reacto-add-visit-icon{
+    margin-left: 0.5rem;
+    opacity: 0.8;
+}
+.electro-reacto-add-visit-with-transform{
+    margin-bottom: 2rem;
+    margin-top:-1rem;
+    max-height: 0px;
+    transition:max-height 0.8s ease-in-out;
+    overflow: hidden;
+}
+.electro-reacto-add-visit-with-transform-extended{
+    margin-bottom: 2rem;
+    margin-top:-1rem;
+    max-height: 500px;
+    overflow: hidden;
+    transition:max-height 0.8s ease-in-out;
+}
