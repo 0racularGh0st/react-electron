@@ -54,3 +54,11 @@
     overflow: hidden;
     transition:max-height 0.8s ease-in-out;
 }
+.electro-reacto-patient-main-details{
+    text-align: center;
+    margin-bottom: 1rem;
+    color: grey;
+    background-color: #ececec;
+    border-radius: 10px;
+    padding: 4px 16px;
+}

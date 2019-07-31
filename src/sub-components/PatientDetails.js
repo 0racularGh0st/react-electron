@@ -17,6 +17,7 @@ export default class PatientDetails extends React.Component {
     constructor(props) {
         super(props);
         this.patientDetails = this.props.patientDetails || 'Default';
+        this.mainDetails=this.props.patientHistoryDetails || null;
         this.state = {
             complaints: '',
             medication: '',
@@ -60,6 +61,9 @@ export default class PatientDetails extends React.Component {
         if (this.props.patientDetails !== nextProps.patientDetails) {
             this.patientDetails = nextProps.patientDetails;
         }
+        if (this.props.patientHistoryDetails !== nextProps.patientHistoryDetails) {
+            this.mainDetails = nextProps.patientHistoryDetails;
+        }
     }
     handleComplaintsChange(e) {
         this.setState({
@@ -98,6 +102,7 @@ export default class PatientDetails extends React.Component {
         }));
     }
     render() {
+        console.log("main details-->>",this.mainDetails);
         let addButtonActive=this.state.addButtonClicked;
         let buttonText=!addButtonActive?"Add Visit":"Cancel";
         let buttonIcon=!addButtonActive?<Add className="electro-reacto-add-visit-icon" />: <Cancel className="electro-reacto-add-visit-icon" />
@@ -109,8 +114,8 @@ export default class PatientDetails extends React.Component {
             console.log(this.patientDetails.reg_no);
             let i = 0;
             for (i = 0; i < this.patientDetails.visits.length; i++) {
-                content.push(<div key={i}>
-                    <ExpansionPanel>
+                content.push(<div style={{"margin-bottom":"0.5rem"}} key={i}>
+                    <ExpansionPanel >
                         <ExpansionPanelSummary
                             expandIcon={<ExpandMoreIcon />}
                             aria-controls="panel1a-content"
@@ -118,7 +123,7 @@ export default class PatientDetails extends React.Component {
                         >
                             <div className="electro-reacto-visits-text electro-reacto-text-color">Visit {i + 1}: </div>
                         </ExpansionPanelSummary>
-                        <ExpansionPanelDetails>
+                        <ExpansionPanelDetails >
                             <span className="electro-reacto-visits-flex-box">
                                 <Card className="electro-reacto-visits-complaints electro-reacto-visits-card">
                                     <CardContent>
@@ -161,6 +166,12 @@ export default class PatientDetails extends React.Component {
                 <div className="electro-reacto-text-color electro-reacto-patient-details-header">
                     Patient History
                 </div>
+                {this.mainDetails!==null && 
+                     <div className="electro-reacto-patient-main-details">
+                         Name: {this.mainDetails.firstname} {this.mainDetails.lastname} | Age: {this.mainDetails.age} | Sex: {this.mainDetails.sex}
+                    </div>
+
+                }
                 {this.patientDetails!=='Default' &&
                 <div>
                 <Button variant="outlined" className="electro-reacto-add-patient-textfields electro_reacto-remove-top-margin" onClick={()=>{this.handleAddButtonClick();}}>

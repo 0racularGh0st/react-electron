@@ -13,6 +13,7 @@ export default class SearchResults extends React.Component {
         }
         this.searchResults = this.props.searchResults || 'Default';
         this.handlePatientDetailsFetch = this.handlePatientDetailsFetch.bind(this);
+        this.regToDetails={};
     }
     componentWillReceiveProps(nextProps, nextContext) {
         if (this.props.searchResults !== nextProps.searchResults) {
@@ -20,7 +21,8 @@ export default class SearchResults extends React.Component {
         }
     }
     handlePatientDetailsFetch(e) {
-        this.props.vdbGetPatientHistory(e.target.id);
+        console.log("Reg->",e.target.id," Details->",this.regToDetails[e.target.id]);
+        this.props.vdbGetPatientHistory(e.target.id,this.regToDetails[e.target.id]);       
     }
 
 
@@ -34,12 +36,20 @@ export default class SearchResults extends React.Component {
                     // console.log(this.searchResults);
                     var reg_no = [];
                     for (i = 0; i < this.searchResults.length; i++) {
+                       
                         reg_no[i] = this.searchResults[i].reg_no;
+                        this.regToDetails[this.searchResults[i].reg_no]={
+                            "firstname":this.searchResults[i].firstname,
+                            "lastname":this.searchResults[i].lastname,
+                            "age":this.searchResults[i].age,
+                            "sex":this.searchResults[i].sex
+                        }
                         console.log("reg_no-->>>", reg_no[i]);
     
                         searchResultsContent.push(<div key={i}><Paper  onClick={this.handlePatientDetailsFetch} className={"electro-reacto-paper-results-unique "}><div id={reg_no[i]} className={"electro-reacto-paper-content electro-reacto-text-color"}>{(i + 1) + ". " + this.searchResults[i].firstname + " "}
-                            {this.searchResults[i].lastname + " (Age:" + this.searchResults[i].age + " Sex:" + this.searchResults[i].sex + ")"}
+                            {this.searchResults[i].lastname + "  | Age:" + this.searchResults[i].age + " | Sex:" + this.searchResults[i].sex}
                         </div></Paper></div>);
+                       
                     }
     
                 }

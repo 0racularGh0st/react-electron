@@ -55,7 +55,8 @@ export default class App extends React.Component {
             amount:'',
             // Search Object
             searchData:null,
-            patientHistory:null
+            patientHistory:null,
+            patientHistoryDetails:null
         };
         this.toggleModal = this.toggleModal.bind(this);
         //Add New Patient Tab Functions
@@ -125,14 +126,14 @@ export default class App extends React.Component {
        })
        .then(data=>{this.setState({searchData:data});console.log(data)});     
     }
-    vdbGetPatientHistory(reg_no){
+    vdbGetPatientHistory(reg_no,otherDetails){
         console.log("Clicked in PatientDetails with parameter as ", reg_no);
         new Promise((resolve,reject)=>{
            db.getVisits(reg_no,function(data){
                 resolve(data);
            })
         })
-        .then(data=>{this.setState({patientHistory:data});console.log(data)});  
+        .then(data=>{this.setState({patientHistory:data});this.setState({patientHistoryDetails:otherDetails});console.log(data,"other---][][[]>.",otherDetails)});  
     }
     vdbAddVist(reg,complaints,meds,amount){
         new Promise((resolve,reject)=>{
@@ -308,7 +309,7 @@ export default class App extends React.Component {
                             <Col sm="7">
                                 <Row className="electro-reacto-cards">
                                     <Card body>
-                                       <PatientDetails patientDetails={this.state.patientHistory} vdbAddVist={this.vdbAddVist}/>
+                                       <PatientDetails patientDetails={this.state.patientHistory} vdbAddVist={this.vdbAddVist} patientHistoryDetails={this.state.patientHistoryDetails}/>
                                     </Card>
                                 </Row>
                             </Col>
