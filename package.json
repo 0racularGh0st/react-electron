@@ -8,10 +8,6 @@
     "bootstrap": "^4.3.1",
     "browserify-fs": "^1.0.0",
     "classnames": "^2.2.6",
-    "conf": "^5.0.0",
-    "electron-store": "^4.0.0",
-    "fs": "^0.0.1-security",
-    "fs-jetpack": "^2.2.2",
     "jquery": "^3.4.1",
     "material-ui-search-bar": "^1.0.0-beta.13",
     "nedb": "^1.8.0",
@@ -20,8 +16,7 @@
     "react": "^16.8.0",
     "react-dom": "^16.8.0",
     "react-scripts": "1.0.17",
-    "reactstrap": "^8.0.1",
-    "type-fest": "^0.6.0"
+    "reactstrap": "^8.0.1"
   },
   "devDependencies": {
     "electron": "^1.7.10",
