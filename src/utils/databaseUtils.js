@@ -2,6 +2,14 @@ let Datastore = require('nedb');
 let db = new Datastore({ filename: 'db/patients.db', autoload: true });
 let vdb = new Datastore({ filename: 'db/visits.db', autoload: true });
 //Backup Patient details and visits 
+function download(content, fileName, contentType) {
+    var a = document.createElement("a");
+    var file = new Blob([content], {type: contentType});
+    a.href = URL.createObjectURL(file);
+    a.download = fileName;
+    a.click();
+}
+
 exports.doBackUp = function (){
     var jsonData;
     var jsonDataContent;
@@ -17,8 +25,27 @@ exports.doBackUp = function (){
     })
         .then((docs)=>{
             console.log(docs);
+
+            download(JSON.stringify(docs), 'Patients.txt', 'text/plain');
         })
         .catch(err => { console.log(err) });
+
+        new Promise((resolve, reject) => {
+            // Get all persons from the database with matching name
+            vdb.find({}, function (err, docs) {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(docs);
+                }
+            });
+        })
+            .then((docs)=>{
+                console.log(docs);
+    
+                download(JSON.stringify(docs), 'Visits.txt', 'text/plain');
+            })
+            .catch(err => { console.log(err) });
 
 }
 // Adds a person

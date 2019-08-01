@@ -40,14 +40,18 @@
     -->
 </body>
 <script type="text/javascript">
+//only for development
+
+//  var remote=require('electron').remote;
+//   document.addEventListener('keydown', function (e) {
+//     if (e.which === 123) {
+//       remote.getCurrentWindow().webContents.openDevTools();
+//     } else if (e.which === 116) {
+//       location.reload();
+//     }
+//   });
+
   
-  document.addEventListener('keydown', function (e) {
-    if (e.which === 123) {
-      remote.getCurrentWindow().webContents.openDevTools();
-    } else if (e.which === 116) {
-      location.reload();
-    }
-  });
 </script>
 
 </html>
