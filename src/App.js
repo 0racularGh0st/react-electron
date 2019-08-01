@@ -303,7 +303,7 @@ export default class App extends React.Component {
                         </Row>
                         <Row>
                             <Col sm="11">
-                                <Button id="backup-button-save" variant="contained" size="small" className="electro-reacto-backup-button-style"  >
+                                <Button id="backup-button-save" variant="contained" size="small" className="electro-reacto-backup-button-style" onClick={()=>{this.handleBackupRequest();}} >
                                     <SaveIcon className="electro-reacto-backup-icon-style"  />
                                      Backup Records
                                      </Button>
