@@ -16,7 +16,7 @@ exports.doBackUp = function (){
         });
     })
         .then((docs)=>{
-                console.log(docs);
+            console.log(docs);
         })
         .catch(err => { console.log(err) });
 
