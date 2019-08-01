@@ -121,7 +121,7 @@ export default class PatientDetails extends React.Component {
             console.log("main details-->>",this.mainDetails);
             let i = 0;
             for (i = 0; i < this.patientDetails.visits.length; i++) {
-                content.push(<div style={{"margin-bottom":"0.5rem"}} key={i}>
+                content.push(<div className="electro-reacto-margin-bottom-visit" key={i}>
                     <ExpansionPanel >
                         <ExpansionPanelSummary
                             expandIcon={<ExpandMoreIcon />}
