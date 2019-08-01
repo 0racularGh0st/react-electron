@@ -9,6 +9,7 @@ import PersonAdd from '@material-ui/icons/PersonAdd';
 import SearchPerson from '@material-ui/icons/Search';
 import Snackbar from '@material-ui/core/Snackbar';
 import SnackbarContent from '@material-ui/core/SnackbarContent';
+import SaveIcon from '@material-ui/icons/Save';
 import './App.css';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
@@ -44,20 +45,21 @@ export default class App extends React.Component {
             editActive: false,
             saveActive: false,
             //For SnackBar
-            SnackBarOpen:false,
+            SnackBarOpen: false,
             //For form inputs
-            firstname:'',
-            lastname:'',
-            age:'',
-            sex:'',
-            complaints:'',
-            medication:'',
-            amount:'',
+            firstname: '',
+            lastname: '',
+            age: '',
+            sex: '',
+            complaints: '',
+            medication: '',
+            amount: '',
             // Search Object
-            searchData:null,
-            patientHistory:null,
-            patientHistoryDetails:null
+            searchData: null,
+            patientHistory: null,
+            patientHistoryDetails: null
         };
+        this.handleBackupRequest=this.handleBackupRequest.bind(this);
         this.toggleModal = this.toggleModal.bind(this);
         //Add New Patient Tab Functions
         this.confirmClicked = this.confirmClicked.bind(this);
@@ -65,18 +67,22 @@ export default class App extends React.Component {
         //Database Operations
         this.dbSearch = this.dbSearch.bind(this);
         this.dbAddNewPatient = this.dbAddNewPatient.bind(this);
-        this.vdbGetPatientHistory= this.vdbGetPatientHistory.bind(this);
+        this.vdbGetPatientHistory = this.vdbGetPatientHistory.bind(this);
         //Snack Bar Toggle 
         this.toggleSnackBarOpen = this.toggleSnackBarOpen.bind(this);
         this.toggleSnackBarClose = this.toggleSnackBarClose.bind(this);
         //For handling text changes in textfields
-        this.handleFirstnameChange=this.handleFirstnameChange.bind(this);
-        this.handleLastnameChange=this.handleLastnameChange.bind(this);
-        this.handleAgeChange=this.handleAgeChange.bind(this);
-        this.handleSexChange=this.handleSexChange.bind(this);
-        this.handleComplaintsChange=this.handleComplaintsChange.bind(this);
-        this.handleMedicationChange=this.handleMedicationChange.bind(this);
-        this.handleAmountChange=this.handleAmountChange.bind(this);
+        this.handleFirstnameChange = this.handleFirstnameChange.bind(this);
+        this.handleLastnameChange = this.handleLastnameChange.bind(this);
+        this.handleAgeChange = this.handleAgeChange.bind(this);
+        this.handleSexChange = this.handleSexChange.bind(this);
+        this.handleComplaintsChange = this.handleComplaintsChange.bind(this);
+        this.handleMedicationChange = this.handleMedicationChange.bind(this);
+        this.handleAmountChange = this.handleAmountChange.bind(this);
+    }
+    //Handle Backup
+    handleBackupRequest(){
+        db.doBackUp();
     }
     //Add New Patient Tab Buttons
     confirmClicked() {
@@ -106,12 +112,12 @@ export default class App extends React.Component {
             });
         }
     }
-    toggleSnackBarClose(){
+    toggleSnackBarClose() {
         this.setState({
             snackBarActive: false
         });
     }
-    toggleSnackBarOpen(){
+    toggleSnackBarOpen() {
         this.setState({
             snackBarActive: true
         });
@@ -119,29 +125,29 @@ export default class App extends React.Component {
     //OPERATIONS
     dbSearch(name) {
         console.log("Clicked in searchComponent with parameter as ", name);
-       new Promise((resolve,reject)=>{
-          db.getPersons(name,function(data){
-               resolve(data);
-          })
-       })
-       .then(data=>{this.setState({searchData:data});console.log(data)});     
-    }
-    vdbGetPatientHistory(reg_no,otherDetails){
-        console.log("Clicked in PatientDetails with parameter as ", reg_no);
-        new Promise((resolve,reject)=>{
-           db.getVisits(reg_no,function(data){
+        new Promise((resolve, reject) => {
+            db.getPersons(name, function (data) {
                 resolve(data);
-           })
+            })
         })
-        .then(data=>{this.setState({patientHistory:data});this.setState({patientHistoryDetails:otherDetails});console.log(data,"other---][][[]>.",otherDetails)});  
+            .then(data => { this.setState({ searchData: data }); console.log(data) });
     }
-    vdbAddVist(reg,complaints,meds,amount){
-        new Promise((resolve,reject)=>{
-            db.addVisit(reg,complaints,meds,amount,function(){
+    vdbGetPatientHistory(reg_no, otherDetails) {
+        console.log("Clicked in PatientDetails with parameter as ", reg_no);
+        new Promise((resolve, reject) => {
+            db.getVisits(reg_no, function (data) {
+                resolve(data);
+            })
+        })
+            .then(data => { this.setState({ patientHistory: data }); this.setState({ patientHistoryDetails: otherDetails }); console.log(data, "other---][][[]>.", otherDetails) });
+    }
+    vdbAddVist(reg, complaints, meds, amount) {
+        new Promise((resolve, reject) => {
+            db.addVisit(reg, complaints, meds, amount, function () {
                 resolve();
             })
         })
-        .then(console.log("Data ready for re rendering"));
+            .then(console.log("Data ready for re rendering"));
     }
     dbAddNewPatient() {
         let firstname = document.getElementById("id_firstname");
@@ -151,22 +157,22 @@ export default class App extends React.Component {
         let complaints = document.getElementById("id_complaints");
         let medication = document.getElementById("id_medication");
         let amount = document.getElementById("id_amount");
-        if(firstname.value!=='' || firstname.value!==undefined || firstname.value!==null)
-        {db.addPatient(firstname.value, lastname.value, age.value, sex.value, complaints.value, medication.value, amount.value);
+        if (firstname.value !== '' || firstname.value !== undefined || firstname.value !== null) {
+            db.addPatient(firstname.value, lastname.value, age.value, sex.value, complaints.value, medication.value, amount.value);
 
-        this.setState({
-            firstname:'',
-            lastname:'',
-            age:'',
-            sex:'',
-            complaints:'',
-            medication:'',
-            amount:''
-        });
+            this.setState({
+                firstname: '',
+                lastname: '',
+                age: '',
+                sex: '',
+                complaints: '',
+                medication: '',
+                amount: ''
+            });
 
-        this.toggleSnackBarOpen();
-        //Reset Form buttons
-        this.editClicked();
+            this.toggleSnackBarOpen();
+            //Reset Form buttons
+            this.editClicked();
         }
     }
     //Form value change handlers
@@ -175,32 +181,32 @@ export default class App extends React.Component {
             firstname: e.target.value
         });
     }
-    handleLastnameChange(e){
+    handleLastnameChange(e) {
         this.setState({
             lastname: e.target.value
         });
     }
-    handleAgeChange(e){
+    handleAgeChange(e) {
         this.setState({
             age: e.target.value
         });
     }
-    handleSexChange(e){
+    handleSexChange(e) {
         this.setState({
             sex: e.target.value
         });
     }
-    handleComplaintsChange(e){
+    handleComplaintsChange(e) {
         this.setState({
             complaints: e.target.value
         });
     }
-    handleMedicationChange(e){
+    handleMedicationChange(e) {
         this.setState({
             medication: e.target.value
         });
     }
-    handleAmountChange(e){
+    handleAmountChange(e) {
         this.setState({
             amount: e.target.value
         });
@@ -291,6 +297,18 @@ export default class App extends React.Component {
                                 </Button>
                             </Col>
                         </Row>
+                        <Row>
+                            <Col sm="11" className="electro-reacto-line">
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col sm="11">
+                                <Button variant="contained" size="small" className="electro-reacto-backup-button-style" onClick={()=>{this.handleBackupRequest();}} >
+                                    <SaveIcon className="electro-reacto-backup-icon-style"  />
+                                     Backup Records
+                                     </Button>
+                            </Col>
+                        </Row>
                     </TabPane>
                     <TabPane tabId="2">
                         <Row>
@@ -309,11 +327,12 @@ export default class App extends React.Component {
                             <Col sm="7">
                                 <Row className="electro-reacto-cards">
                                     <Card body>
-                                       <PatientDetails patientDetails={this.state.patientHistory} vdbAddVist={this.vdbAddVist} patientHistoryDetails={this.state.patientHistoryDetails} vdbGetPatientHistory={this.vdbGetPatientHistory} />
+                                        <PatientDetails patientDetails={this.state.patientHistory} vdbAddVist={this.vdbAddVist} patientHistoryDetails={this.state.patientHistoryDetails} vdbGetPatientHistory={this.vdbGetPatientHistory} />
                                     </Card>
                                 </Row>
                             </Col>
                         </Row>
+
                     </TabPane>
                 </TabContent>
                 <Modal isOpen={this.state.modal} toggle={this.toggleModal}>
@@ -330,22 +349,22 @@ export default class App extends React.Component {
                     }}
                     open={snackBarActive}
                     autoHideDuration={6000}
-                    onClose={()=>{this.toggleSnackBarClose();}}
+                    onClose={() => { this.toggleSnackBarClose(); }}
                 >
                     <SnackbarContent
                         style={{
-                            backgroundColor:"#43a047"
-                          }}
+                            backgroundColor: "#43a047"
+                        }}
                         message={<span id="client-snackbar" >
-                        <CheckCircleIcon style={{fontsize:20,margin:"0 8px 0 0",opacity:0.9}} />
-                        Patient record has been added successfully!
+                            <CheckCircleIcon style={{ fontsize: 20, margin: "0 8px 0 0", opacity: 0.9 }} />
+                            Patient record has been added successfully!
                       </span>}
-                      action={[
-                        <IconButton key="close" aria-label="close" color="inherit" onClick={()=>{this.toggleSnackBarClose();}}>
-                          <CloseIcon style={{fontsize:20}}/>
-                        </IconButton>,
-                      ]}
-                      
+                        action={[
+                            <IconButton key="close" aria-label="close" color="inherit" onClick={() => { this.toggleSnackBarClose(); }}>
+                                <CloseIcon style={{ fontsize: 20 }} />
+                            </IconButton>,
+                        ]}
+
                     />
                 </Snackbar>
             </div>

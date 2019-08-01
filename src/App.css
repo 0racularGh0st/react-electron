@@ -15,6 +15,10 @@
 .electro-reacto-navbarbrand-text{
 color: #007685;
 }
+.electro-reacto-navbarbrand-backup-text{
+  color: #007685;
+  margin-left: auto;
+}
 .clinic-icon{
   background: url(./images/clinic-icon.png)  no-repeat;
   background-size: 49px;
@@ -46,4 +50,11 @@ color: #007685;
 .electro-reacto-line{
   border-bottom: 1px solid #a9b7c3;
   padding-top: 1.5rem;
+}
+.electro-reacto-backup-button-style{
+  margin-top:1rem !important;
+  float: right;
+}
+.electro-reacto-backup-icon-style{
+  margin-right: 0.5rem;
 }

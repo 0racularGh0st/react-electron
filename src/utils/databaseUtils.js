@@ -1,8 +1,43 @@
 let Datastore = require('nedb');
 let db = new Datastore({ filename: 'db/patients.db', autoload: true });
 let vdb = new Datastore({ filename: 'db/visits.db', autoload: true });
+//Backup Patient details and visits 
+exports.doBackUp = function (){
+    var jsonData;
+    var jsonDataContent;
+    new Promise((resolve, reject) => {
+        // Get all persons from the database with matching name
+        db.find({}, function (err, docs) {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(docs);
+            }
+        });
+    })
+        .then((docs)=>{
+                console.log(docs);
+        })
+        .catch(err => { console.log(err) });
+
+}
 // Adds a person
 exports.addPatient = function (firstname, lastname, age, sex, complaints, meds, amount) {
+    var today = new Date();
+    var dd = today.getDate();
+    
+    var mm = today.getMonth()+1; 
+    var yyyy = today.getFullYear();
+    if(dd<10) 
+    {
+        dd='0'+dd;
+    } 
+    
+    if(mm<10) 
+    {
+        mm='0'+mm;
+    }
+    var date=dd+"/"+mm+"/"+yyyy;
     db.count({}, function (err, number) {
 
         var person = {
@@ -17,7 +52,8 @@ exports.addPatient = function (firstname, lastname, age, sex, complaints, meds, 
             "visits": [{
                 "complaints": complaints,
                 "meds": meds,
-                "amount": amount
+                "amount": amount,
+                "date":date,
             }]
         }
 
@@ -69,11 +105,26 @@ exports.getVisits = function (reg_no, callback) {
 }
 
 exports.addVisit = function (reg,complaints,meds,amount, callback) {
-   
+    var today = new Date();
+    var dd = today.getDate();
+    
+    var mm = today.getMonth()+1; 
+    var yyyy = today.getFullYear();
+    if(dd<10) 
+    {
+        dd='0'+dd;
+    } 
+    
+    if(mm<10) 
+    {
+        mm='0'+mm;
+    }
+    var date=dd+"/"+mm+"/"+yyyy;
        var newVisit={
             "complaints": complaints,
             "meds": meds,
-            "amount": amount
+            "amount": amount,
+            "date":date
         }
 
         new Promise((resolve,reject)=>{

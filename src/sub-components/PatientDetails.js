@@ -108,7 +108,7 @@ export default class PatientDetails extends React.Component {
         }));
     }
     render() {
-        console.log("main details-->>",this.mainDetails);
+        
         let addButtonActive=this.state.addButtonClicked;
         let buttonText=!addButtonActive?"Add Visit":"Cancel";
         let buttonIcon=!addButtonActive?<Add className="electro-reacto-add-visit-icon" />: <Cancel className="electro-reacto-add-visit-icon" />
@@ -118,6 +118,7 @@ export default class PatientDetails extends React.Component {
         let content = [];
         if (this.patientDetails !== 'Default' && this.patientDetails !== null && this.patientDetails !== undefined) {
             console.log(this.patientDetails.reg_no);
+            console.log("main details-->>",this.mainDetails);
             let i = 0;
             for (i = 0; i < this.patientDetails.visits.length; i++) {
                 content.push(<div style={{"margin-bottom":"0.5rem"}} key={i}>
@@ -127,7 +128,7 @@ export default class PatientDetails extends React.Component {
                             aria-controls="panel1a-content"
                             id="panel1a-header"
                         >
-                            <div className="electro-reacto-visits-text electro-reacto-text-color">Visit {i + 1}: </div>
+                            <div className="electro-reacto-visits-text electro-reacto-text-color">Visit {i + 1} | Date: {this.patientDetails.visits[i].date} </div>
                         </ExpansionPanelSummary>
                         <ExpansionPanelDetails >
                             <span className="electro-reacto-visits-flex-box">
